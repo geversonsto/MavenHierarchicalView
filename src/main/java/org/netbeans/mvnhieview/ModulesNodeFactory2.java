@@ -1,9 +1,11 @@
 package org.netbeans.mvnhieview;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javax.swing.event.ChangeListener;
 import org.netbeans.api.project.Project;
+import org.netbeans.api.project.ProjectUtils;
 import org.netbeans.spi.project.SubprojectProvider;
 import org.netbeans.spi.project.ui.LogicalViewProvider;
 import org.netbeans.spi.project.ui.support.NodeFactory;
@@ -14,48 +16,56 @@ import org.openide.nodes.Node;
 @NodeFactory.Registration(projectType = "org-netbeans-modules-maven", position = 400)
 public class ModulesNodeFactory2 implements NodeFactory {
 
-    @Override
-    public NodeList<?> createNodes(Project prjct) {
-        return new MavenModulesNodeList(prjct);
-    }
+   @Override
+   public NodeList<?> createNodes(Project project) {
+      return new MavenModulesNodeList(project);
+   }
 
-    private class MavenModulesNodeList implements NodeList<Project> {
+   private class MavenModulesNodeList implements NodeList<Project> {
 
-        private final Project project;
+      private final Project project;
 
-        public MavenModulesNodeList(Project prjct) {
-            this.project = prjct;
-        }
+      public MavenModulesNodeList(Project project) {
+         this.project = project;
+      }
 
-        @Override
-        public List<Project> keys() {
-            return new ArrayList<Project> (project.getLookup().
-                lookup(SubprojectProvider.class).getSubprojects());
-        }
+      @Override
+      public List<Project> keys() {
 
-        @Override
-        public Node node(final Project project) {
-            Node node = project.getLookup().
-                lookup(LogicalViewProvider.class).createLogicalView();
-            return new FilterNode(node, new FilterNode.Children(node));
-        }
+         ArrayList<Project> projects = new ArrayList<>(project.getLookup().lookup(SubprojectProvider.class).getSubprojects());
 
-        @Override
-        public void addChangeListener(ChangeListener cl) {
-        }
+         projects.sort(new Comparator<Project>() {
+            @Override
+            public int compare(Project project1, Project project2) {
+               return ProjectUtils.getInformation(project1).getDisplayName().compareTo(ProjectUtils.getInformation(project2).getDisplayName());
+            }
+         });
 
-        @Override
-        public void removeChangeListener(ChangeListener cl) {
-        }
+         return projects;
+      }
 
-        @Override
-        public void addNotify() {
-        }
+      @Override
+      public Node node(final Project project) {
+         Node node = project.getLookup().lookup(LogicalViewProvider.class).createLogicalView();
+         return new FilterNode(node, new FilterNode.Children(node));
+      }
 
-        @Override
-        public void removeNotify() {
-        }
-        
-    }
-    
+      @Override
+      public void addChangeListener(ChangeListener changeListener) {
+      }
+
+      @Override
+      public void removeChangeListener(ChangeListener changeListener) {
+      }
+
+      @Override
+      public void addNotify() {
+      }
+
+      @Override
+      public void removeNotify() {
+      }
+
+   }
+
 }
