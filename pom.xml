@@ -51,41 +51,41 @@
       <dependency>
          <groupId>org.netbeans.api</groupId>
          <artifactId>org-netbeans-api-annotations-common</artifactId>
-         <version>${netbeans.platfrom.version}</version>
+         <version>${netbeans.platform.version}</version>
       </dependency>
       <dependency>
          <groupId>org.netbeans.api</groupId>
          <artifactId>org-openide-nodes</artifactId>
-         <version>${netbeans.platfrom.version}</version>
+         <version>${netbeans.platform.version}</version>
          <type>jar</type>
       </dependency>
       <dependency>
          <groupId>org.netbeans.api</groupId>
          <artifactId>org-netbeans-modules-projectuiapi</artifactId>
-         <version>${netbeans.platfrom.version}</version>
+         <version>${netbeans.platform.version}</version>
          <type>jar</type>
       </dependency>
       <dependency>
          <groupId>org.netbeans.api</groupId>
          <artifactId>org-netbeans-modules-editor-indent-project</artifactId>
-         <version>${netbeans.platfrom.version}</version>
+         <version>${netbeans.platform.version}</version>
          <type>jar</type>
       </dependency>
       <dependency>
          <groupId>org.netbeans.api</groupId>
          <artifactId>org-netbeans-modules-projectapi</artifactId>
-         <version>${netbeans.platfrom.version}</version>
+         <version>${netbeans.platform.version}</version>
       </dependency>
       <dependency>
          <groupId>org.netbeans.api</groupId>
          <artifactId>org-openide-util-lookup</artifactId>
-         <version>${netbeans.platfrom.version}</version>
+         <version>${netbeans.platform.version}</version>
       </dependency>
    </dependencies>
     
    <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <netbeans.platfrom.version>RELEASE82</netbeans.platfrom.version>
+      <netbeans.platform.version>RELEASE82</netbeans.platform.version>
    </properties>
     
 </project>
